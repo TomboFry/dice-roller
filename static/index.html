@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>DnD Multiplayer Dice Roller</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel='stylesheet' href='style.css' />
+		<script src='/socket.io/socket.io.js' type='text/javascript'></script>
+		<script src='main.js' type='text/javascript' defer></script>
+	</head>
+	<body>
+		<h1 id='player_name_title'></h1>
+		<div class='block' id='recent_roll_block'>
+			<span>Recent roll:</span>
+			<span id='recent_roll'>N/A</span>
+		</div>
+		<div class='block' id='set_player'>
+			<h1>Enter your character's name:</h1>
+			<input
+				oninput='javascript:typeName();'
+				type='text'
+				id='player_name'
+				required
+			/>
+			<button onclick='javascript:setName();'>Set Name</button>
+		</div>
+		<div id='roll_buttons'>
+			<button id='1d2'>1d2</button>
+			<button id='1d3'>1d3</button>
+			<button id='1d4'>1d4</button>
+			<button id='1d6'>1d6</button>
+			<button id='1d8'>1d8</button>
+			<button id='1d10'>1d10</button>
+			<button id='1d12'>1d12</button>
+			<button id='1d20'>1d20</button>
+			<button id='1d100'>1d100</button>
+			<span id='bonus_span'>+<input
+				type='number'
+				oninput='javascript:validateBonus();'
+				id='bonus_input'
+				min='0'
+				max='65536'
+				placeholder='bonus'
+			/></span>
+		</div>
+		<p class='p_padding'>Player List:</p>
+		<ul id='player_list'>
+			<li>None</li>
+		</ul>
+	</body>
+</html>

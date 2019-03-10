@@ -1,0 +1,178 @@
+* {
+	box-sizing: border-box;
+	line-height: 1;
+	padding: 0;
+	margin: 0;
+}
+
+body {
+	font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+p {
+	border-bottom: 1px solid #ddd;
+	padding: 8px;
+	padding-top: 32px;
+	margin-bottom: 16px;
+	display: block;
+}
+
+.p_padding {
+	margin-left: 16px;
+	margin-right: 16px;
+}
+
+.block {
+	background-color: #DADDE8;
+	border-radius: 8px;
+}
+
+button {
+	border: 0;
+	font-weight: 700;
+	font-size: 16px;
+	background-color: #3000FF;
+	color: #FFF;
+	padding: 12px 16px;
+	border-radius: 32px;
+	margin-right: 4px;
+	margin-bottom: 4px;
+}
+
+button:hover {
+	background-color: #393DFF;
+}
+
+ul {
+	list-style-type: none;
+}
+
+#player_name_title {
+	font-size: 24px;
+	padding: 16px;
+}
+
+#player_name_title:empty {
+	display: none;
+}
+
+#recent_roll_block {
+	padding: 16px;
+	margin: 0 16px;
+}
+
+#recent_roll {
+	display: block;
+	font-size: 32pt;
+	font-weight: 700;
+	text-align: center;
+}
+
+#player_list {
+	margin-left: 0;
+	padding: 0 16px;
+	padding-bottom: 128px;
+}
+
+#set_player {
+	padding: 16px;
+	margin: 16px;
+	margin-bottom: 0;
+}
+
+#set_player h1 {
+	margin-bottom: 16px;
+}
+
+input {
+	font-size: 24px;
+	padding: 4px;
+	line-height: 1.618;
+}
+
+#bonus_input {
+	width: 128px;
+}
+
+#bonus_span {
+	float: right;
+	white-space: nowrap;
+	font-size: 20px;
+	font-weight: 700;
+}
+
+#roll_buttons {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: #ffffff;
+	padding: 16px;
+}
+
+.player {
+	display: inline-block;
+	max-width: 240px;
+	width: 100%;
+	margin-bottom: 16px;
+	margin-right: 16px;
+}
+
+.player > ul {
+	height: 320px;
+	display: block;
+	padding: 0 16px 16px;
+	overflow-y: auto;
+}
+
+.player_name {
+	display: block;
+	padding: 16px;
+	font-size: 22px;
+	font-weight: 700;
+}
+
+.roll {
+	padding: 4px 0;
+	display: block;
+}
+
+.roll_result {
+	font-size: 18px;
+	font-weight: 700;
+}
+
+.roll_time {
+	font-size: 12px;
+	color: #666;
+	float: right;
+}
+
+@media (max-width: 480px) {
+	.player {
+		max-width: 100%;
+		width: 100%;
+	}
+	.player > ul {
+		height: 180px;
+	}
+
+	#player_list {
+		padding-bottom: 160px;
+	}
+
+	#recent_roll_block {
+		width: auto;
+		width: calc(100% - 32px);
+	}
+
+	#bonus_span {
+		float: none;
+		display: block;
+	}
+
+	#bonus_input {
+		width: 160px;
+	}
+}
+
