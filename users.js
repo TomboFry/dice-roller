@@ -29,7 +29,9 @@ class User {
 
 	roll (size, bonus) {
 		size = parseFloat(size);
-		if (validSizes.includes(size) === false) return;
+		if (validSizes.includes(size) === false) {
+			throw new Error(`Dice size '${size}' is invalid`);
+		}
 		this.history.unshift(new Roll(size, bonus));
 		this.history = this.history.slice(0, 12);
 	}

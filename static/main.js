@@ -1,4 +1,4 @@
-const socket = io();
+let socket = io();
 
 function elm(id) {
 	return document.getElementById(id);
@@ -16,33 +16,25 @@ const roll_buttons = elm('roll_buttons');
 const recent_roll_block = elm('recent_roll_block');
 const recent_roll = elm('recent_roll');
 const bonus_input = elm('bonus_input');
-
-const buttons = {
-	d2: elm('1d2'),
-	d3: elm('1d3'),
-	d4: elm('1d4'),
-	d6: elm('1d6'),
-	d8: elm('1d8'),
-	d10: elm('1d10'),
-	d12: elm('1d12'),
-	d20: elm('1d20'),
-	d100: elm('1d100'),
-};
+const error_container = elm('error_container');
+const error_message = elm('error_message');
 
 function ready () {
 	set_player.style.display = 'block';
 	roll_buttons.style.display = 'none';
 	recent_roll_block.style.display = 'none';
+	error_container.style.display = 'none';
 
-	const keys = Object.keys(buttons);
+	typeName();
+}
 
-	for (let i = 0; i < keys.length; i++) {
-		const button = buttons[keys[i]];
-		button.addEventListener(
-			'click',
-			roll(keys[i].replace('d',''))
-		);
-	}
+function errorShow (message) {
+	error_message.innerText = message;
+	error_container.style.display = 'block';
+}
+
+function errorClose () {
+	error_container.style.display = 'none';
 }
 
 function roll (size) {
@@ -145,10 +137,19 @@ function updateUsers () {
 	player_list.innerHTML = innerHTML;
 }
 
+socket.on('disconnect', () => {
+	ready();
+	if (my_user === null) return;
+	socket = null;
+	socket = io();
+});
+
 socket.on('new_user_list', new_users => {
 	users = new_users;
 	updateUsers();
 	getMyUser();
 });
+
+socket.on('server_error', errorShow);
 
 document.addEventListener('DOMContentLoaded', ready);

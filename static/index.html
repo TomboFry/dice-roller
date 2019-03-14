@@ -24,15 +24,16 @@
 			<button onclick='javascript:setName();'>Set Name</button>
 		</div>
 		<div id='roll_buttons'>
-			<button id='1d2'>1d2</button>
-			<button id='1d3'>1d3</button>
-			<button id='1d4'>1d4</button>
-			<button id='1d6'>1d6</button>
-			<button id='1d8'>1d8</button>
-			<button id='1d10'>1d10</button>
-			<button id='1d12'>1d12</button>
-			<button id='1d20'>1d20</button>
-			<button id='1d100'>1d100</button>
+			<button onclick='javascript:roll(2)();' id='1d2'>1d2</button>
+			<button onclick='javascript:roll(3)();' id='1d3'>1d3</button>
+			<button onclick='javascript:roll(4)();' id='1d4'>1d4</button>
+			<button onclick='javascript:roll(6)();' id='1d6'>1d6</button>
+			<button onclick='javascript:roll(8)();' id='1d8'>1d8</button>
+			<button onclick='javascript:roll(9)();' id='1d9'>1d9</button>
+			<button onclick='javascript:roll(10)();' id='1d10'>1d10</button>
+			<button onclick='javascript:roll(12)();' id='1d12'>1d12</button>
+			<button onclick='javascript:roll(20)();' id='1d20'>1d20</button>
+			<button onclick='javascript:roll(100)();' id='1d100'>1d100</button>
 			<span id='bonus_span'>+<input
 				type='number'
 				oninput='javascript:validateBonus();'
@@ -46,5 +47,13 @@
 		<ul id='player_list'>
 			<li>None</li>
 		</ul>
+		<div id="error_container">
+			<div id="error_overlay"></div>
+			<div id="error_content">
+				<h1>Error Occurred</h1>
+				<span id="error_message">Unknown error.</span>
+				<button onclick='javascript:errorClose();'>Okay.</button>
+			</div>
+		</div>
 	</body>
 </html>

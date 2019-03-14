@@ -18,7 +18,7 @@ const getUserIndex = id => {
 };
 
 io.on('connection', socket => {
-	console.log('Connected');
+	console.log('User connected');
 
 	// Send the user list to new players
 	socket.emit('new_user_list', users);
@@ -31,21 +31,36 @@ io.on('connection', socket => {
 		user = new User(username, shortid());
 		users.push(user);
 
+		console.log(`Username set: '${user.name}' (id: ${user.id})`);
+
 		// Send new user to all players
 		io.emit('new_user_list', users);
 	});
 
 	// Runs when the user rolls a die
 	socket.on('roll', ({ size, bonus }) => {
-		if (bonus === null) bonus = 0;
-		user.roll(size, bonus);
-		
-		// Update the users array
-		const index = getUserIndex(user.id);
-		if (index !== -1) users[index] = user;
-		
-		// Send to all players
-		io.emit('new_user_list', users);
+		try {
+			if (user === null) {
+				throw new Error('Username not set. You may need to refresh');
+			}
+
+			if (bonus === null) bonus = 0;
+
+			user.roll(size, bonus);
+
+			console.log(`'${user.name}': 1d${size}+${bonus} rolled ${user.history[0].result}`);
+
+			// Update the users array
+			const index = getUserIndex(user.id);
+			if (index !== -1) users[index] = user;
+			
+			// Send to all players
+			io.emit('new_user_list', users);
+		} catch (err) {
+			console.log(`'${user.name}': ${err.message}`);
+			socket.emit('server_error', err.message);
+			return;
+		}
 	});
 
 	// When the user disconnects for whatever reason
@@ -66,4 +81,3 @@ io.on('connection', socket => {
 });
 
 server.listen(port, () => console.log(`Listening on port ${port}!`));
-
