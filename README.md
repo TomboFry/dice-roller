@@ -8,5 +8,6 @@ they're rolling, this solution lets you see exactly who rolled what and when.
 ## Setup / Installation
 
 * Install NodeJS
+* Copy `.env.template` to `.env` and modify if needed
 * Run `npm install`
 * Run `npm run start:production`

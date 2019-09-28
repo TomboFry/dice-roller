@@ -4,6 +4,12 @@ function elm(id) {
 	return document.getElementById(id);
 }
 
+// This value may get updated later, these are default values.
+let serverConfig = {
+	maxBonus: 20,
+	minBonus: -20
+};
+
 let users = [];
 let my_user = null;
 let my_user_index = -1;
@@ -68,8 +74,8 @@ function validateBonus () {
 	let final_bonus = parseFloat(bonus_input.value);
 
 	if (isNaN(final_bonus) || !isFinite(final_bonus)) final_bonus = 0;
-	if (final_bonus < -20) final_bonus = -20;
-	if (final_bonus > 20) final_bonus = 20;
+	if (final_bonus < serverConfig.minBonus) final_bonus = serverConfig.minBonus;
+	if (final_bonus > serverConfig.maxBonus) final_bonus = serverConfig.maxBonus;
 
 	final_bonus = Math.floor(final_bonus);
 
@@ -162,6 +168,13 @@ socket.on('new_user_list', new_users => {
 	getMyUser();
 	updateUsers();
 });
+
+socket.on('server_config', newServerConfig => {
+	// Copy the values over.
+	serverConfig = { ...newServerConfig };
+	bonus_input.setAttribute('min', `${serverConfig.minBonus}`);
+	bonus_input.setAttribute('max', `${serverConfig.maxBonus}`);
+})
 
 socket.on('server_error', errorShow);
 

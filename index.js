@@ -1,14 +1,18 @@
+const env = require('./env');
 const express = require('express');
 const app = express();
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 const shortid = require('shortid');
-const port = 3333;
 
 const { Roll, User } = require('./users');
 
 app.use(express.static('static'));
 
+const serverConfig = {
+	maxBonus: env.MAX_BONUS,
+	minBonus: env.MIN_BONUS,
+};
 const users = [];
 
 const getUserIndex = id => {
@@ -22,6 +26,7 @@ io.on('connection', socket => {
 
 	// Send the user list to new players
 	socket.emit('new_user_list', users);
+	socket.emit('server_config', serverConfig);
 
 	let user = null;
 
@@ -81,4 +86,4 @@ io.on('connection', socket => {
 	});
 });
 
-server.listen(port, () => console.log(`Listening on port ${port}!`));
+server.listen(env.HTTP_PORT, () => console.log(`Listening on port ${env.HTTP_PORT}!`));

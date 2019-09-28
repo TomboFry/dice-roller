@@ -1,3 +1,5 @@
+const env = require('./env');
+
 const validSizes = [
 	2, 3, 4, 6, 8,
 	10, 12, 20, 100
@@ -43,8 +45,8 @@ class User {
 			throw new Error(`Dice size '${size}' is invalid`);
 		}
 
-		if (bonus > 20) bonus = 20;
-		if (bonus < -20) bonus = -20;
+		if (bonus > env.MAX_BONUS) bonus = env.MAX_BONUS;
+		if (bonus < env.MIN_BONUS) bonus = env.MIN_BONUS;
 
 		this.history.unshift(new Roll(size, bonus));
 		this.history = this.history.slice(0, 12);
