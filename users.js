@@ -8,6 +8,7 @@ class Roll {
 		this.size = size;
 		this.bonus = bonus;
 		this.timestamp = new Date();
+		this.latest = true;
 
 		this.result = this.calculateRoll();
 	}
@@ -25,6 +26,10 @@ class User {
 
 		// Array of Roll
 		this.history = [];
+	}
+
+	updateRolls () {
+		this.history.forEach(roll => roll.latest = false);
 	}
 
 	roll (size, bonus) {

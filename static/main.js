@@ -6,6 +6,7 @@ function elm(id) {
 
 let users = [];
 let my_user = null;
+let my_user_index = -1;
 let user_name = '';
 
 const set_player = elm('set_player');
@@ -19,22 +20,31 @@ const bonus_input = elm('bonus_input');
 const error_container = elm('error_container');
 const error_message = elm('error_message');
 
+function visible (elm, visible = true) {
+	if (visible === false) {
+		elm.classList.add('hidden');
+		return;
+	}
+
+	elm.classList.remove('hidden');
+}
+
 function ready () {
-	set_player.style.display = 'block';
-	roll_buttons.style.display = 'none';
-	recent_roll_block.style.display = 'none';
-	error_container.style.display = 'none';
+	visible(set_player);
+	visible(roll_buttons, false);
+	visible(recent_roll_block, false);
+	visible(error_container, false);
 
 	typeName();
 }
 
 function errorShow (message) {
 	error_message.innerText = message;
-	error_container.style.display = 'block';
+	visible(error_container);
 }
 
 function errorClose () {
-	error_container.style.display = 'none';
+	visible(error_container, false);
 }
 
 function roll (size) {
@@ -72,8 +82,9 @@ function getMyUser () {
 	if (index === -1) return;
 
 	my_user = users[index];
+	my_user_index = index;
 
-	let roll = 'N/A';
+	let roll = '0';
 
 	if (my_user.history.length > 0) {
 		roll = my_user.history[0].result;
@@ -91,9 +102,9 @@ function setName () {
 
 	socket.emit('username', name);
 
-	set_player.style.display = 'none';
-	roll_buttons.style.display = 'block';
-	recent_roll_block.style.display = 'inline-block';
+	visible(set_player, false);
+	visible(roll_buttons);
+	visible(recent_roll_block);
 	player_name_title.innerText = `You are '${name}'`;
 }
 
@@ -116,15 +127,18 @@ function updateUsers () {
 
 	for (let i = 0; i < users.length; i++) {
 		const user = users[i];
+		const is_me = i === my_user_index;
 		innerHTML += '<li class=\'player block\'>';
-		innerHTML += `<span class=\'player_name\'>${user.name}</span>`;
+		innerHTML += `<span class=\'player_name${is_me ? ' accent' : ''}\'>${user.name}${is_me ? ' (You)' : ''}</span>`;
 		innerHTML += '<ul>';
 		for (let i = 0; i < user.history.length; i++) {
 			const roll = user.history[i];
-			innerHTML += '<li class=\'roll\'>';
-			innerHTML += `${roll.size} + ${roll.bonus} = `;
+			innerHTML += `<li class=\'roll${roll.latest === true ? ' latest' : ''}\'>`;
+			innerHTML += '<span class="roll_full_string">';
+			innerHTML += `${roll.size} + ${roll.bonus} → `;
 			innerHTML += '<span class=\'roll_result\'>';
 			innerHTML += roll.result;
+			innerHTML += '</span>';
 			innerHTML += '</span>';
 			const ts = formatDate(new Date(roll.timestamp));
 			innerHTML += `<span class=\'roll_time\'>${ts}</span>`;
@@ -145,8 +159,8 @@ socket.on('disconnect', () => {
 
 socket.on('new_user_list', new_users => {
 	users = new_users;
-	updateUsers();
 	getMyUser();
+	updateUsers();
 });
 
 socket.on('server_error', errorShow);

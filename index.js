@@ -46,6 +46,7 @@ io.on('connection', socket => {
 
 			if (bonus === null) bonus = 0;
 
+			users.forEach(user => user.updateRolls());
 			user.roll(size, bonus);
 
 			console.log(`'${user.name}': 1d${size}+${bonus} rolled ${user.history[0].result}`);
@@ -53,7 +54,7 @@ io.on('connection', socket => {
 			// Update the users array
 			const index = getUserIndex(user.id);
 			if (index !== -1) users[index] = user;
-			
+
 			// Send to all players
 			io.emit('new_user_list', users);
 		} catch (err) {

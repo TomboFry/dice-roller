@@ -8,20 +8,22 @@
 		<script src='main.js' type='text/javascript' defer></script>
 	</head>
 	<body>
-		<h1 id='player_name_title'></h1>
-		<div class='block' id='recent_roll_block'>
-			<span>Recent roll:</span>
-			<span id='recent_roll'>N/A</span>
+		<div class='block accent' id='recent_roll_block'>
+			<span id='recent_roll_label'>Recent roll:</span>
+			<span id='recent_roll'>0</span>
 		</div>
 		<div class='block' id='set_player'>
-			<h1>Enter your character's name:</h1>
-			<input
-				oninput='javascript:typeName();'
-				type='text'
-				id='player_name'
-				required
-			/>
-			<button onclick='javascript:setName();'>Set Name</button>
+			<h1 id='player_name_title'></h1>
+			<div id="set_player_input">
+				<input
+					oninput='javascript:typeName();'
+					type='text'
+					id='player_name'
+					required
+					placeholder="Enter your character's name"
+				/>
+				<button onclick='javascript:setName();'>Set Name</button>
+			</div>
 		</div>
 		<div id='roll_buttons'>
 			<button onclick='javascript:roll(2)();' id='1d2'>1d2</button>
@@ -29,7 +31,6 @@
 			<button onclick='javascript:roll(4)();' id='1d4'>1d4</button>
 			<button onclick='javascript:roll(6)();' id='1d6'>1d6</button>
 			<button onclick='javascript:roll(8)();' id='1d8'>1d8</button>
-			<button onclick='javascript:roll(9)();' id='1d9'>1d9</button>
 			<button onclick='javascript:roll(10)();' id='1d10'>1d10</button>
 			<button onclick='javascript:roll(12)();' id='1d12'>1d12</button>
 			<button onclick='javascript:roll(20)();' id='1d20'>1d20</button>
@@ -43,7 +44,6 @@
 				placeholder='+/- bonus'
 			/></span>
 		</div>
-		<p class='p_padding'>Player List:</p>
 		<ul id='player_list'>
 			<li>None</li>
 		</ul>
