@@ -21,7 +21,7 @@ class Roll {
 class User {
 	constructor (name, id) {
 		// Used for display purposes
-		this.name = name;
+		this.name = name.trim().replace(/[^a-zA-Z0-9.\-_ ]/g, '');;
 		this.id = id;
 
 		// Array of Roll

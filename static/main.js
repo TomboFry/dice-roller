@@ -56,7 +56,7 @@ function roll (size) {
 }
 
 function stripString (input) {
-	return input.trim().replace(/[^a-zA-Z0-9.\- ]/g, '');
+	return input.trim().replace(/[^a-zA-Z0-9.\-_ ]/g, '');
 }
 
 function typeName () {
