@@ -57,10 +57,9 @@ function typeName () {
 function validateBonus () {
 	let final_bonus = parseFloat(bonus_input.value);
 
-	if (final_bonus < 0) final_bonus = 0;
-	if (isNaN(final_bonus) || !isFinite(final_bonus)) {
-		final_bonus = 0;
-	}
+	if (isNaN(final_bonus) || !isFinite(final_bonus)) final_bonus = 0;
+	if (final_bonus < -20) final_bonus = -20;
+	if (final_bonus > 20) final_bonus = 20;
 
 	final_bonus = Math.floor(final_bonus);
 

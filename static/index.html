@@ -34,13 +34,13 @@
 			<button onclick='javascript:roll(12)();' id='1d12'>1d12</button>
 			<button onclick='javascript:roll(20)();' id='1d20'>1d20</button>
 			<button onclick='javascript:roll(100)();' id='1d100'>1d100</button>
-			<span id='bonus_span'>+<input
+			<span id='bonus_span'><input
 				type='number'
 				oninput='javascript:validateBonus();'
 				id='bonus_input'
-				min='0'
-				max='65536'
-				placeholder='bonus'
+				min='-20'
+				max='20'
+				placeholder='+/- bonus'
 			/></span>
 		</div>
 		<p class='p_padding'>Player List:</p>

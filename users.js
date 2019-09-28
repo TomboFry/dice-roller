@@ -29,9 +29,18 @@ class User {
 
 	roll (size, bonus) {
 		size = parseFloat(size);
+		bonus = parseFloat(bonus);
+
+		if (isNaN(size)) throw new Error('Size must be a number');
+		if (isNaN(bonus)) throw new Error('Bonus must be a number');
+
 		if (validSizes.includes(size) === false) {
 			throw new Error(`Dice size '${size}' is invalid`);
 		}
+
+		if (bonus > 20) bonus = 20;
+		if (bonus < -20) bonus = -20;
+
 		this.history.unshift(new Roll(size, bonus));
 		this.history = this.history.slice(0, 12);
 	}
