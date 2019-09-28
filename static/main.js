@@ -134,21 +134,22 @@ function updateUsers () {
 	for (let i = 0; i < users.length; i++) {
 		const user = users[i];
 		const is_me = i === my_user_index;
-		innerHTML += '<li class=\'player block\'>';
-		innerHTML += `<span class=\'player_name${is_me ? ' accent' : ''}\'>${user.name}${is_me ? ' (You)' : ''}</span>`;
+		innerHTML += `<li class='player block'>`;
+		innerHTML += `<span class='player_name${is_me ? ' accent' : ''}'>`;
+		innerHTML += `${user.name}${is_me ? ' (You)' : ''}`;
+		innerHTML += `</span>`;
 		innerHTML += '<ul>';
 		for (let i = 0; i < user.history.length; i++) {
 			const roll = user.history[i];
-			innerHTML += `<li class=\'roll${roll.latest === true ? ' latest' : ''}\'>`;
-			innerHTML += '<span class="roll_full_string">';
-			innerHTML += `${roll.size} + ${roll.bonus} → `;
-			innerHTML += '<span class=\'roll_result\'>';
-			innerHTML += roll.result;
-			innerHTML += '</span>';
-			innerHTML += '</span>';
 			const ts = formatDate(new Date(roll.timestamp));
-			innerHTML += `<span class=\'roll_time\'>${ts}</span>`;
-			innerHTML += '</li>';
+
+			innerHTML += `<li class='roll${roll.latest === true ? ' latest' : ''}'>`;
+			innerHTML += `<span class='roll_full_string'>`;
+			innerHTML += `${roll.size} + ${roll.bonus} → `;
+			innerHTML += `<span class='roll_result'>${roll.result}</span>`;
+			innerHTML += `</span>`;
+			innerHTML += `<span class='roll_time'>${ts}</span>`;
+			innerHTML += `</li>`;
 		}
 		innerHTML += '</ul></li>';
 	}
