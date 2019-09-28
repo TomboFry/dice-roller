@@ -1,0 +1,9 @@
+{
+	"uid": "dice",
+	"append": true,
+	"watch": false,
+	"script": "index.js",
+	"logFile": "dice-log.log",
+	"outFile": "dice-out.log",
+	"errFile": "dice-err.log"
+}
